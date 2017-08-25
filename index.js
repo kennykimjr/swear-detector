@@ -1,3 +1,7 @@
+const defaults = require('./default')
+
+console.log(defaults)
+
 function parseMessage(message, delimiters) {
   let gathered = ''
   let parsedMessage = new Set()
