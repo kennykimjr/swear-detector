@@ -33,7 +33,7 @@ function hasSwear(parsedMessage, swears) {
 }
 
 function censor(word, censors) {
-  return censors[word] ? censors[word] : word
+  return censors[word.toLowerCase()] ? censors[word.toLowerCase()] : word
 }
 
 function collectDelimiters(sentence, delimiters) {
@@ -48,14 +48,23 @@ function collectDelimiters(sentence, delimiters) {
 
 function censorSentence(sentence, censors, delimiters) {
   const collectedDelimiters = collectDelimiters(sentence, delimiters)
-  const parsedMessage = parseMessage(sentence, delimiters)
+  const parsedMessage = parseMessage(sentence, delimiters, 'array')
+  console.log(parsedMessage)
+  const values = parsedMessage.values()
   let newMessage = ''
-  parsedMessage.forEach(word => {
-    newMessage += censor(word, censors)
-    if (collectedDelimiters[newMessage.length]) {
-      newMessage += collectedDelimiters[newMessage.length]
+  let count = 0
+  while (newMessage.length < sentence.length) {
+    if (sentence[count] === collectedDelimiters[count]) {
+      newMessage += collectedDelimiters[count]
+      count++
     }
-  })
+    else {
+      let next = values.next().value
+      if (next === undefined) return newMessage
+      newMessage += censor(next, censors)
+      count = newMessage.length
+    }
+  }
   return newMessage
 }
 
