@@ -32,8 +32,41 @@ function hasSwear(parsedMessage, swears) {
   }
 }
 
+function censor(word, censors) {
+  return censors[word.toLowerCase()] ? censors[word.toLowerCase()] : word
+}
+
+function collectDelimiters(sentence, delimiters) {
+  let collectedDelimiters = {}
+  for (let i = 0; i < sentence.length; i++) {
+    if (delimiters.has(sentence[i])) {
+      collectedDelimiters[i] = sentence[i]
+    }
+  }
+  return collectedDelimiters
+}
+
+function censorSentence(sentence, censors, delimiters) {
+  const collectedDelimiters = collectDelimiters(sentence, delimiters)
+  let newMessage = gathered = ''
+  for (let i = 0; i < sentence.length; i++) {
+    if (delimiters.has(sentence[i])) {
+      newMessage += censor(gathered, censors)
+      newMessage += sentence[i]
+      gathered = ''
+    }
+    else {
+      gathered += sentence[i]
+    }
+  }
+  return newMessage
+}
+
 module.exports = {
   parseMessage: parseMessage,
   parseDelimiters: parseDelimiters,
-  hasSwear: hasSwear
+  hasSwear: hasSwear,
+  censor: censor,
+  censorSentence: censorSentence,
+  parseDelimiters: parseDelimiters
 }

@@ -34,4 +34,22 @@ describe('swear-detector Library Tests', () => {
     expect(multipleParse.swears.size).to.equal(3)
   })
 
+  it('Tests censorship of words and sentences', () => {
+    const censored = {'fuck': '****', 'shit': '****', 'cock': '****', 'bitch': '*****', 'asshole': '***hole', 'fucking': '****ing'}
+    const delimiters = swears.parseDelimiters(' !@#$%^&*()-_=+~`,{}[]|/?.\\')
+    const firstSentence = 'This should return itself.'
+    const secondSentence = 'Fuck and shit should be censored.'
+    const thirdSentence = 'Fuck that shit bro, what a bitch. Was also a huge asshole.'
+    const fourthSetence = 'These are some pretty vulgar tests are they not? But this should do nothing.'
+    const fifthSentence = 'Will this detect fuck/shit/bitch/cock?'
+    const sixthSetence = '  This should return itself  .  Right  ?  '
+    const seventhSentence = ' Now you are in for it you little shit! How fucking dare you pass this test_! - = + ^ I shall be unpassable you little bitch! You are a huge asshole for solving me!!!!!! '
+    expect(swears.censorSentence(firstSentence, censored, delimiters)).to.equal(firstSentence)
+    expect(swears.censorSentence(secondSentence, censored, delimiters)).to.equal('**** and **** should be censored.')
+    expect(swears.censorSentence(thirdSentence, censored, delimiters)).to.equal('**** that **** bro, what a *****. Was also a huge ***hole.')
+    expect(swears.censorSentence(fourthSetence, censored, delimiters)).to.equal(fourthSetence)
+    expect(swears.censorSentence(fifthSentence, censored, delimiters)).to.equal('Will this detect ****/****/*****/****?')
+    expect(swears.censorSentence(sixthSetence, censored, delimiters)).to.equal(sixthSetence)
+    expect(swears.censorSentence(seventhSentence, censored, delimiters)).to.equal(' Now you are in for it you little ****! How ****ing dare you pass this test_! - = + ^ I shall be unpassable you little *****! You are a huge ***hole for solving me!!!!!! ')
+  })
 })
