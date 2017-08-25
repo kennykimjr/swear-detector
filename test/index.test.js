@@ -16,6 +16,27 @@ describe('swear-detector Library Tests', () => {
     expect(bigResult.size).to.equal(22)
   })
 
+  it('test censorship of words', () => {
+    expect(swears.censor('fuck')).to.equal('****')
+    expect(swears.censor('fuckyoufuck', 'root')).to.equal('****you****')
+    expect(swears.censor('fucker', 'root')).to.equal('****er')
+    expect(swears.censor('shitty')).to.equal('shitty')
+    expect(swears.censor('shitty', 'root')).to.equal('****ty')
+    expect(swears.censor('motherfucker', 'root')).to.equal('mother****er')
+    expect(swears.censor('ass')).to.equal('***')
+    expect(swears.censor('ass', 'root')).to.equal('***')
+    expect(swears.censor('asshole')).to.equal('asshole')
+    expect(swears.censor('asshole', 'root')).to.equal('***hole')
+    expect(swears.censor('bullshit', 'root')).to.equal('bull****')
+    expect(swears.censor('horseshit', 'root')).to.equal('horse****')
+    expect(swears.censor('bulllshit', 'root')).to.equal('bulll****')
+    expect(swears.censor('fag', 'root')).to.equal('***')
+    expect(swears.censor('faggot', 'root')).to.equal('***got')
+    expect(swears.censor('pussy', 'root')).to.equal('*****')
+    expect(swears.censor('pussies')).to.equal('*******')
+    expect(swears.censor('cock')).to.equal('****')
+  })
+
   it('tests swear detections', () => {
     const smallMessage = 'I am a normal message, I should not trigger any swears'
     const oneSwearMessage = 'no shit sherlock that of course there is a swear in this message.'
@@ -31,7 +52,7 @@ describe('swear-detector Library Tests', () => {
     expect(multipleParse.swears.size).to.equal(3)
   })
 
-  it('Tests censorship of words and sentences', () => {
+  it('Tests censorship of sentences', () => {
     const firstSentence = 'This should return itself.'
     const secondSentence = 'Fuck and shit should be censored.'
     const thirdSentence = 'Fuck that shit bro, what a bitch. Was also a huge asshole.'
