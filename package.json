@@ -4,7 +4,7 @@
   "description": "A javaScript Library for chat application users who want to moderate their chatrooms.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha test/"
   },
   "repository": {
     "type": "git",

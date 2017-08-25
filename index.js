@@ -10,6 +10,7 @@ function parseMessage(message, delimiters) {
       gathered = ''
     }
   }
+  parsedMessage.delete('')
   return parsedMessage
 }
 
@@ -19,4 +20,9 @@ function hasSwear(parsedMessage, swears) {
     hasSwear: union.length > 0 ? true : false,
     swears: union
   }
+}
+
+module.exports = {
+  parseMessage: parseMessage,
+  hasSwear: hasSwear
 }
