@@ -48,21 +48,15 @@ function collectDelimiters(sentence, delimiters) {
 
 function censorSentence(sentence, censors, delimiters) {
   const collectedDelimiters = collectDelimiters(sentence, delimiters)
-  const parsedMessage = parseMessage(sentence, delimiters, 'array')
-  console.log(parsedMessage)
-  const values = parsedMessage.values()
-  let newMessage = ''
-  let count = 0
-  while (newMessage.length < sentence.length) {
-    if (sentence[count] === collectedDelimiters[count]) {
-      newMessage += collectedDelimiters[count]
-      count++
+  let newMessage = gathered = ''
+  for (let i = 0; i < sentence.length; i++) {
+    if (delimiters.has(sentence[i])) {
+      newMessage += censor(gathered, censors)
+      newMessage += sentence[i]
+      gathered = ''
     }
     else {
-      let next = values.next().value
-      if (next === undefined) return newMessage
-      newMessage += censor(next, censors)
-      count = newMessage.length
+      gathered += sentence[i]
     }
   }
   return newMessage
