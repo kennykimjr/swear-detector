@@ -1,0 +1,24 @@
+{
+  "name": "swear-detector",
+  "version": "1.0.0",
+  "description": "A javaScript Library for chat application users who want to moderate their chatrooms.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kennykimjr/swear-detector.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kennykimjr/swear-detector/issues"
+  },
+  "homepage": "https://github.com/kennykimjr/swear-detector#readme",
+  "devDependencies": {
+    "chai": "^4.1.1",
+    "mocha": "^3.5.0"
+  }
+}
