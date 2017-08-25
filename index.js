@@ -9,7 +9,7 @@ function toStar(length) {
 const defaultSwears = new Set([
   'fuck', 'shit', 'bitch', 'nigger', 'cock', 'pussy', 'pussies',
   'kike', 'dyke', 'kyke', 'gook', 'wetback', 'penis', 'ass',
-  'dick', 'kraut', 'fag', 'cunt', 'twat', 'whore', 'douche'
+  'dick', 'kraut', 'fag', 'cunt', 'twat', 'whore', 'douche', 'nigga'
 ])
 
 const defaultCensors = {}
@@ -53,8 +53,19 @@ function hasSwear(parsedMessage, swears=defaultSwears) {
   }
 }
 
-function censor(word, censors=defaultCensors) {
-  return censors[word.toLowerCase()] ? censors[word.toLowerCase()] : word
+function censor(word, mode, censors=defaultCensors) {
+  if (mode === undefined) {
+    return censors[word.toLowerCase()] ? censors[word.toLowerCase()] : word
+  }
+  else {
+    if (censors[word.toLowerCase()]) return censors[word.toLowerCase()]
+    for (var swear in censors) {
+      if (word.includes(swear)) {
+        return word.replace(new RegExp(swear, 'g'), censors[swear])
+      }
+    }
+    return word
+  }
 }
 
 function collectDelimiters(sentence, delimiters=defaultDelimiters) {
