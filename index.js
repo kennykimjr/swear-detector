@@ -14,10 +14,10 @@ const defaultSwears = new Set([
 
 const defaultCensors = {}
 defaultSwears.forEach(swear => {
-  defaultSwears[swear] = toStar(swear.length)
+  defaultCensors[swear] = toStar(swear.length)
 })
 
-defaultDelimiters = ' !@#$%^&*()-_=+~`,{}[]|/?.\\'
+defaultDelimiters = parseDelimiters(' !@#$%^&*()-_=+~`,{}[]|/?.\\')
 
 function parseMessage(message, delimiters=defaultDelimiters) {
   let gathered = ''
@@ -45,7 +45,7 @@ function parseDelimiters(delimiters=defaultDelimiters) {
 
 function hasSwear(parsedMessage, swears=defaultSwears) {
   const union = new Set(
-    [...parsedMessage].filter(word => swears.has(word))
+    [...parsedMessage].filter(word => swears.has(word.toLowerCase()))
   )
   return {
     hasSwear: union.size >= 1 ? true : false,
