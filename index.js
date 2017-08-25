@@ -6,21 +6,18 @@ function toStar(length) {
   return stars
 }
 
-function getDefaultSwears() {
-  return new Set([
-    'fuck', 'shit', 'bitch', 'nigger', 'cock', 'pussy', 'pussies',
-    'kike', 'dyke', 'kyke', 'gook', 'wetback', 'penis', 'ass',
-    'dick', 'kraut', 'fag', 'cunt', 'twat', 'whore', 'douche'
-  ])
-}
+const defaultSwears = new Set([
+  'fuck', 'shit', 'bitch', 'nigger', 'cock', 'pussy', 'pussies',
+  'kike', 'dyke', 'kyke', 'gook', 'wetback', 'penis', 'ass',
+  'dick', 'kraut', 'fag', 'cunt', 'twat', 'whore', 'douche'
+])
 
-function getCensors() {
-  const censors = {}
-  getDefaultSwears.forEach(swear => {
-    censors[swear] = toStar(swear.length)
-  })
-  return censors
-}
+const defaultCensors = {}
+defaultSwears.forEach(swear => {
+  defaultSwears[swear] = toStar(swear.length)
+})
+
+defaultDelimiters = ' !@#$%^&*()-_=+~`,{}[]|/?.\\'
 
 function parseMessage(message, delimiters) {
   let gathered = ''
