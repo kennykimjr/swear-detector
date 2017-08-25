@@ -4,7 +4,7 @@ const swears = require('../index.js')
 
 describe('parseMessage Tests', () => {
   it('tests parses of messages', () => {
-    const delimiters = new Set([' ', ',', '.', '/', '=', '&', '#', ':', ';', '!', '?', '~', '-', '_', ']', '[', '|', '*', '(', ')'])
+    const delimiters = swears.parseDelimiters(' !@#$%^&*()-_=+~`,{}[]|/?.\\')
     const smallMessage = 'testing a new/old message!'
     const mediumMessage = 'I am testing a medium message that has a lot of repeated words. I am going to get the correct results, right?'
     const bigMessage = 'I am containing a list with [one, two, three, four, five], give or take some gratuitous output. This-should_be_parsed!correctly.'

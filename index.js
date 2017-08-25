@@ -14,6 +14,14 @@ function parseMessage(message, delimiters) {
   return parsedMessage
 }
 
+function parseDelimiters(delimiters) {
+  const parsedDelimiters = new Set()
+  for (let i = 0; i < delimiters.length; i++) {
+    parsedDelimiters.add(delimiters[i])
+  }
+  return parsedDelimiters
+}
+
 function hasSwear(parsedMessage, swears) {
   const union = new Set([...parsedMessage, ...swears])
   return {
@@ -24,5 +32,6 @@ function hasSwear(parsedMessage, swears) {
 
 module.exports = {
   parseMessage: parseMessage,
+  parseDelimiters: parseDelimiters,
   hasSwear: hasSwear
 }
