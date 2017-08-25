@@ -42,8 +42,21 @@ function collectDelimiters(sentence, delimiters) {
     if (delimiters.has(sentence[i]) {
       collectedDelimiters[i] = sentence[i]
     }
-  }
+  }(
   return collectedDelimiters
+}
+
+function censorSentence(sentence, censors, delimiters) {
+  const collectedDelimiters = collectedDelimiters(sentence, delimiters)
+  const parsedMessage = parseMessage(sentence, delimiters)
+  let newMessage = ''
+  parsedMessage.forEach(word => {
+    newMessage += censor(word, censors)
+    if (collectedDelimiters[newMessage.length - 1]) {
+      newMessage += collectedDelimiters[newMessage.length - 1]
+    }
+  })
+  return newMessage
 }
 
 module.exports = {
