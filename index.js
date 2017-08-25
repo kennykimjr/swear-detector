@@ -19,7 +19,7 @@ defaultSwears.forEach(swear => {
 
 defaultDelimiters = ' !@#$%^&*()-_=+~`,{}[]|/?.\\'
 
-function parseMessage(message, delimiters) {
+function parseMessage(message, delimiters=defaultDelimiters) {
   let gathered = ''
   let parsedMessage = new Set()
   for (let i = 0; i < message.length; i++) {
@@ -35,7 +35,7 @@ function parseMessage(message, delimiters) {
   return parsedMessage
 }
 
-function parseDelimiters(delimiters) {
+function parseDelimiters(delimiters=defaultDelimiters) {
   const parsedDelimiters = new Set()
   for (let i = 0; i < delimiters.length; i++) {
     parsedDelimiters.add(delimiters[i])
@@ -43,7 +43,7 @@ function parseDelimiters(delimiters) {
   return parsedDelimiters
 }
 
-function hasSwear(parsedMessage, swears) {
+function hasSwear(parsedMessage, swears=defaultSwears) {
   const union = new Set(
     [...parsedMessage].filter(word => swears.has(word))
   )
@@ -53,11 +53,11 @@ function hasSwear(parsedMessage, swears) {
   }
 }
 
-function censor(word, censors) {
+function censor(word, censors=defaultCensors) {
   return censors[word.toLowerCase()] ? censors[word.toLowerCase()] : word
 }
 
-function collectDelimiters(sentence, delimiters) {
+function collectDelimiters(sentence, delimiters=defaultDelimiters) {
   let collectedDelimiters = {}
   for (let i = 0; i < sentence.length; i++) {
     if (delimiters.has(sentence[i])) {
@@ -67,7 +67,7 @@ function collectDelimiters(sentence, delimiters) {
   return collectedDelimiters
 }
 
-function censorSentence(sentence, censors, delimiters) {
+function censorSentence(sentence, censors=defaultCensors, delimiters=defaultDelimiters) {
   const collectedDelimiters = collectDelimiters(sentence, delimiters)
   let newMessage = gathered = ''
   for (let i = 0; i < sentence.length; i++) {
