@@ -23,9 +23,11 @@ function parseDelimiters(delimiters) {
 }
 
 function hasSwear(parsedMessage, swears) {
-  const union = new Set([...parsedMessage, ...swears])
+  const union = new Set(
+    [...parsedMessage].filter(word => swears.has(word))
+  )
   return {
-    hasSwear: union.length > 0 ? true : false,
+    hasSwear: union.size >= 1 ? true : false,
     swears: union
   }
 }
