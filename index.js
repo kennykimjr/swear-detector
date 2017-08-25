@@ -12,3 +12,11 @@ function parseMessage(message, delimiters) {
   }
   return parsedMessage
 }
+
+function hasSwear(parsedMessage, swears) {
+  const union = new Set([...parsedMessage, ...swears])
+  return {
+    hasSwear: union.length > 0 ? true : false,
+    swears: union
+  }
+}
