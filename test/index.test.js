@@ -62,10 +62,10 @@ describe('swear-detector Library Tests', () => {
     const seventhSentence = ' Now you are in for it you little shit! How fucking dare you pass this test_! - = + ^ I shall be unpassable you little bitch! You are a huge asshole for solving me!!!!!! '
     expect(swears.censorSentence(firstSentence)).to.equal(firstSentence)
     expect(swears.censorSentence(secondSentence)).to.equal('**** and **** should be censored.')
-    expect(swears.censorSentence(thirdSentence)).to.equal('**** that **** bro, what a *****. Was also a huge ***hole.')
+    expect(swears.censorSentence(thirdSentence, mode='root')).to.equal('**** that **** bro, what a *****. Was also a huge ***hole.')
     expect(swears.censorSentence(fourthSetence)).to.equal(fourthSetence)
     expect(swears.censorSentence(fifthSentence)).to.equal('Will this detect ****/****/*****/****?')
     expect(swears.censorSentence(sixthSetence)).to.equal(sixthSetence)
-    expect(swears.censorSentence(seventhSentence)).to.equal(' Now you are in for it you little ****! How ****ing dare you pass this test_! - = + ^ I shall be unpassable you little *****! You are a huge ***hole for solving me!!!!!! ')
+    expect(swears.censorSentence(seventhSentence, mode='root')).to.equal(' Now you are in for it you little ****! How ****ing dare you p*** this test_! - = + ^ I shall be unp***able you little *****! You are a huge ***hole for solving me!!!!!! ')
   })
 })

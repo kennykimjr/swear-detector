@@ -68,22 +68,11 @@ function censor(word, mode, censors=defaultCensors) {
   }
 }
 
-function collectDelimiters(sentence, delimiters=defaultDelimiters) {
-  let collectedDelimiters = {}
-  for (let i = 0; i < sentence.length; i++) {
-    if (delimiters.has(sentence[i])) {
-      collectedDelimiters[i] = sentence[i]
-    }
-  }
-  return collectedDelimiters
-}
-
-function censorSentence(sentence, censors=defaultCensors, delimiters=defaultDelimiters) {
-  const collectedDelimiters = collectDelimiters(sentence, delimiters)
+function censorSentence(sentence, mode=undefined, censors=defaultCensors, delimiters=defaultDelimiters) {
   let newMessage = gathered = ''
   for (let i = 0; i < sentence.length; i++) {
     if (delimiters.has(sentence[i])) {
-      newMessage += censor(gathered, censors)
+      newMessage += censor(gathered, mode=mode, censors)
       newMessage += sentence[i]
       gathered = ''
     }
