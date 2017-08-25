@@ -38,22 +38,22 @@ function censor(word, censors) {
 
 function collectDelimiters(sentence, delimiters) {
   let collectedDelimiters = {}
-  for (let i = ; i < sentence,length; i++) {
-    if (delimiters.has(sentence[i]) {
+  for (let i = 0; i < sentence.length; i++) {
+    if (delimiters.has(sentence[i])) {
       collectedDelimiters[i] = sentence[i]
     }
-  }(
+  }
   return collectedDelimiters
 }
 
 function censorSentence(sentence, censors, delimiters) {
-  const collectedDelimiters = collectedDelimiters(sentence, delimiters)
+  const collectedDelimiters = collectDelimiters(sentence, delimiters)
   const parsedMessage = parseMessage(sentence, delimiters)
   let newMessage = ''
   parsedMessage.forEach(word => {
     newMessage += censor(word, censors)
-    if (collectedDelimiters[newMessage.length - 1]) {
-      newMessage += collectedDelimiters[newMessage.length - 1]
+    if (collectedDelimiters[newMessage.length]) {
+      newMessage += collectedDelimiters[newMessage.length]
     }
   })
   return newMessage
@@ -62,5 +62,8 @@ function censorSentence(sentence, censors, delimiters) {
 module.exports = {
   parseMessage: parseMessage,
   parseDelimiters: parseDelimiters,
-  hasSwear: hasSwear
+  hasSwear: hasSwear,
+  censor: censor,
+  censorSentence: censorSentence,
+  parseDelimiters: parseDelimiters
 }
