@@ -34,4 +34,15 @@ describe('swear-detector Library Tests', () => {
     expect(multipleParse.swears.size).to.equal(3)
   })
 
+  it('Tests censorship of words and sentences', () => {
+    const censored = {'fuck': '****', 'shit', '****', 'cock': '****', 'bitch', '****', 'asshole', '***hole'}
+    const delimiters = swears.parseDelimiters(' !@#$%^&*()-_=+~`,{}[]|/?.\\')
+    const firstSentence = 'This should return itself.'
+    const secondSentence = 'Fuck and shit should be censored.'
+    const thirdSentence = 'Fuck that shit bro, what a bitch. Was also a huge asshole.'
+    const fourthSetence = 'These are some pretty vulgar tests are they not? But this should do nothing.'
+    const fifthSentence = 'Will this detect fuck/shit/bitch/cock?'
+    const firstResult = swears.censorSentence(firstSentence, censored, delimiters)
+    expect(firstResult).to.equal(firstSentence)
+  })
 })
