@@ -1,11 +1,3 @@
-function toStar(length) {
-  let stars = ''
-  for (let i = 0; i < length; i++) {
-    stars += '*'
-  }
-  return stars
-}
-
 const defaultSwears = new Set([
   'fuck', 'shit', 'bitch', 'nigger', 'cock', 'pussy', 'pussies',
   'kike', 'dyke', 'kyke', 'gook', 'wetback', 'penis', 'ass',
@@ -38,7 +30,15 @@ defaultSwears.forEach(swear => {
   defaultCensors[swear] = toStar(swear.length)
 })
 
-defaultDelimiters = parseDelimiters(' !@#$%^&*()-_=+~`,{}[]|/?.\\')
+const defaultDelimiters = parseDelimiters(' !@#$%^&*()-_=+~`,{}[]|/?.\\')
+
+function toStar(length) {
+  let stars = ''
+  for (let i = 0; i < length; i++) {
+    stars += '*'
+  }
+  return stars
+}
 
 function parseMessage(message, delimiters=defaultDelimiters) {
   let gathered = ''
@@ -75,26 +75,21 @@ function hasSwear(parsedMessage, swears=defaultSwears) {
 }
 
 function censor(word, mode, censors=defaultCensors) {
-  if (mode === undefined) {
-    return censors[word.toLowerCase()] ? censors[word.toLowerCase()] : word
-  }
-  else {
-    if (censors[word.toLowerCase()]) return censors[word.toLowerCase()]
-    for (var swear in censors) {
-      if (word.includes(swear)) {
-        return word.replace(new RegExp(swear, 'g'), censors[swear])
-      }
+  if (censors[word.toLowerCase()]) return censors[word.toLowerCase()]
+  if (mode === undefined) return word
+  for (var swear in censors) {
+    if (word.includes(swear)) {
+      return word.replace(new RegExp(swear, 'g'), censors[swear])
     }
-    return word
   }
+  return word
 }
 
 function censorSentence(sentence, mode=undefined, censors=defaultCensors, delimiters=defaultDelimiters) {
   let newMessage = gathered = ''
   for (let i = 0; i < sentence.length; i++) {
     if (delimiters.has(sentence[i])) {
-      newMessage += censor(gathered, mode=mode, censors)
-      newMessage += sentence[i]
+      newMessage += censor(gathered, mode=mode, censors) + sentence[i]
       gathered = ''
     }
     else {
@@ -118,5 +113,6 @@ module.exports = {
   hasSwear: hasSwear,
   censor: censor,
   censorSentence: censorSentence,
-  parseDelimiters: parseDelimiters
+  parseDelimiters: parseDelimiters,
+  translate: translate
 }
