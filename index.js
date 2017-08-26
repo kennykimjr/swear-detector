@@ -107,6 +107,16 @@ function translate(word, substitutes=defaultSubs) {
   return newWord
 }
 
+function unDodgeWord(word, delimiters=defaultDelimiters) {
+  let newWord = ''
+  for (let i = 0; i < word.length; i++) {
+    if (delimiters.has(word[i]) === false) {
+      newWord += word[i]
+    }
+  }
+  return newWord
+}
+
 module.exports = {
   parseMessage: parseMessage,
   parseDelimiters: parseDelimiters,
