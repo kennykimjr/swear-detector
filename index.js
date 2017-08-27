@@ -31,6 +31,7 @@ defaultSwears.forEach(swear => {
 })
 
 const defaultDelimiters = parseDelimiters(' !@#$%^&*()-_=+~`,{}[]|/?.\\')
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'
 
 function toStar(length) {
   let stars = ''
@@ -115,6 +116,18 @@ function unDodgeWord(word, delimiters=defaultDelimiters) {
     }
   }
   return newWord
+}
+
+function unDodgeWordByAddition(word, alphabet=alphabet) {
+  const possibilities = new Set()
+  for (let i = 0; i < word.length + 1; i++) {
+    const begin = word.slice(0,i)
+    const end = word.slice(i)
+    for (let j = 0; j < alphabet.length; j++) {
+    	possibilities.add(begin + alphabet[j] + end)
+    }
+  }
+  return possibilities
 }
 
 module.exports = {
