@@ -68,4 +68,12 @@ describe('swear-detector Library Tests', () => {
     expect(swears.censorSentence(sixthSetence)).to.equal(sixthSetence)
     expect(swears.censorSentence(seventhSentence, mode='root')).to.equal(' Now you are in for it you little ****! How ****ing dare you p*** this test_! - = + ^ I shall be unp***able you little *****! You are a huge ***hole for solving me!!!!!! ')
   })
+
+  it('Tests the translation and undodging of words', () => {
+    expect(swears.unDodgeWord(swears.translate(' f .u/ ck'))).to.equal('fuck')
+    expect(swears.unDodgeWord(swears.translate('$h1 t'))).to.equal('shit')
+    expect(swears.unDodgeWord(swears.translate('wh0r3'))).to.equal('whore')
+    expect(swears.unDodgeWord(swears.translate('k1k3'))).to.equal('kike')
+    expect(swears.translate('wh@+ foul l@ngu@g3 is 7h15 50rc3rУ?!')).to.equal('what foul language is this sorcery?!')
+  })
 })
