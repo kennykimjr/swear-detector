@@ -1,6 +1,6 @@
 const defaultSwears = new Set([
   'fuck', 'shit', 'bitch', 'nigger', 'cock', 'pussy', 'pussies',
-  'kike', 'dyke', 'kyke', 'gook', 'wetback', 'penis', 'ass',
+  'kike', 'dyke', 'kyke', 'gook', 'wetback', 'penis', 'ass', 'cuck',
   'dick', 'kraut', 'fag', 'cunt', 'twat', 'whore', 'douche', 'nigga'
 ])
 
@@ -74,22 +74,22 @@ function hasSwear(parsedMessage, swears=defaultSwears) {
   }
 }
 
-function censor(word, mode, censors=defaultCensors) {
+function censor(word, mode=undefined, censors=defaultCensors, whitelist=new Set()) {
   if (censors[word.toLowerCase()]) return censors[word.toLowerCase()]
   if (mode === undefined) return word
   for (var swear in censors) {
-    if (word.includes(swear)) {
+    if (word.includes(swear) && whitelist.has(word) === false) {
       return word.replace(new RegExp(swear, 'g'), censors[swear])
     }
   }
   return word
 }
 
-function censorSentence(sentence, mode=undefined, censors=defaultCensors, delimiters=defaultDelimiters) {
+function censorSentence(sentence, mode=undefined, censors=defaultCensors, delimiters=defaultDelimiters, whitelist=new Set()) {
   let newMessage = gathered = ''
   for (let i = 0; i < sentence.length; i++) {
     if (delimiters.has(sentence[i])) {
-      newMessage += censor(gathered, mode=mode, censors) + sentence[i]
+      newMessage += censor(gathered, mode, censors, whitelist) + sentence[i]
       gathered = ''
     }
     else {
@@ -99,10 +99,10 @@ function censorSentence(sentence, mode=undefined, censors=defaultCensors, delimi
   return newMessage
 }
 
-function translate(word, substitutes=defaultSubs) {
+function translate(phrase, substitutes=defaultSubs) {
   let newWord = ''
-  for (let i = 0; i < word.length; i++) {
-    newWord += word[i] in substitutes ? substitutes[word[i]] : word[i]
+  for (let i = 0; i < phrase.length; i++) {
+    newWord += phrase[i] in substitutes ? substitutes[phrase[i]] : phrase[i]
   }
   return newWord
 }
@@ -124,5 +124,6 @@ module.exports = {
   censor: censor,
   censorSentence: censorSentence,
   parseDelimiters: parseDelimiters,
-  translate: translate
+  translate: translate,
+  unDodgeWord: unDodgeWord
 }
