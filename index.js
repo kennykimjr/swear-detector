@@ -130,6 +130,16 @@ function unDodgeWordByAddition(word, alphabet=alphabet) {
   return possibilities
 }
 
+function unDodgeWordByDeletion(word) {
+	const possibilities = new Set()
+	for (let i = 0; i < word.length; i++) {
+  	const beginning = word.slice(0, i)
+    const end = word.slice(i + 1)
+    possibilities.add(beginning + end)
+  }
+  return possibilities
+}
+
 module.exports = {
   parseMessage: parseMessage,
   parseDelimiters: parseDelimiters,
