@@ -26,7 +26,7 @@ function hasSwear(parsedMessage, swears=defaultSwears) {
     swears: union
   }
 }
-index
+
 function censor(word, mode=undefined, censors=defaultCensors, whitelist=new Set()) {
   if (censors[word.toLowerCase()]) return censors[word.toLowerCase()]
   if (mode === undefined) return word
@@ -37,7 +37,7 @@ function censor(word, mode=undefined, censors=defaultCensors, whitelist=new Set(
   }
   return word
 }
-index
+
 function censorSentence(sentence, mode=undefined, censors=defaultCensors, delimiters=defaultDelimiters, whitelist=new Set()) {
   let newMessage = gathered = ''
   for (let i = 0; i < sentence.length; i++) {

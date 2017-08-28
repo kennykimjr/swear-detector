@@ -1,6 +1,7 @@
 const { describe, it } = require('mocha')
 const { expect } = require('chai')
-const swears = require('../index.js')
+const {parseMessage, censor, hasSwear, censorSentence} = require('../swears.js')
+const {unDodgeWordByAddition, unDodgeWordByDeletion, unDodgeWordByDelimiters, translate} = require('../evasion.js')
 
 describe('swear-detector Library Tests', () => {
 
@@ -8,9 +9,9 @@ describe('swear-detector Library Tests', () => {
     const smallMessage = 'testing a new/old message!'
     const mediumMessage = 'I am testing a medium message that has a lot of repeated words. I am going to get the correct results, right?'
     const bigMessage = 'I am containing a list with [one, two, three, four, five], give or take some gratuitous output. This-should_be_parsed!correctly.'
-    const smallResult = swears.parseMessage(smallMessage)
-    const mediumResult = swears.parseMessage(mediumMessage)
-    const bigResult = swears.parseMessage(bigMessage)
+    const smallResult = parseMessage(smallMessage)
+    const mediumResult = parseMessage(mediumMessage)
+    const bigResult = parseMessage(bigMessage)
     expect(smallResult.size).to.equal(5)
     expect(mediumResult.size).to.equal(19)
     expect(bigResult.size).to.equal(22)
@@ -41,9 +42,9 @@ describe('swear-detector Library Tests', () => {
     const smallMessage = 'I am a normal message, I should not trigger any swears'
     const oneSwearMessage = 'no shit sherlock that of course there is a swear in this message.'
     const multipleSwears = 'that guy was such an ass, so I told him to go fuck himself, what a piece of shit he was.'
-    const smallParse = swears.hasSwear(swears.parseMessage(smallMessage))
-    const oneSwearParse = swears.hasSwear(swears.parseMessage(oneSwearMessage))
-    const multipleParse = swears.hasSwear(swears.parseMessage(multipleSwears))
+    const smallParse = swears.hasSwear(parseMessage(smallMessage))
+    const oneSwearParse = swears.hasSwear(parseMessage(oneSwearMessage))
+    const multipleParse = swears.hasSwear(parseMessage(multipleSwears))
     expect(smallParse.hasSwear).to.equal(false)
     expect(smallParse.swears.size).to.equal(0)
     expect(oneSwearParse.hasSwear).to.equal(true)
