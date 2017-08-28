@@ -58,5 +58,6 @@ module.exports = {
   unDodgeWordByDelimiters: unDodgeWordByDelimiters,
   unDodgeWordByDeletion: unDodgeWordByDeletion,
   unDodgeWordByAddition: unDodgeWordByAddition,
+  unDodgeWordbyReplacement: unDodgeWordbyReplacement,
   translate: translate
 }
