@@ -108,7 +108,7 @@ function translate(phrase, substitutes=defaultSubs) {
   return newWord
 }
 
-function unDodgeWord(word, delimiters=defaultDelimiters) {
+function unDodgeWordByDelimiters(word, delimiters=defaultDelimiters) {
   let newWord = ''
   for (let i = 0; i < word.length; i++) {
     if (delimiters.has(word[i]) === false) {
@@ -148,5 +148,7 @@ module.exports = {
   censorSentence: censorSentence,
   parseDelimiters: parseDelimiters,
   translate: translate,
-  unDodgeWord: unDodgeWord
+  unDodgeWordByDelimiters: unDodgeWordByDelimiters,
+  unDodgeWordByDeletion: unDodgeWordByDeletion,
+  unDodgeWordByAddition: unDodgeWordByAddition
 }

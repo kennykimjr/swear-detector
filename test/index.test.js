@@ -70,10 +70,10 @@ describe('swear-detector Library Tests', () => {
   })
 
   it('Tests the translation and undodging of words', () => {
-    expect(swears.unDodgeWord(swears.translate(' f .u/ ck'))).to.equal('fuck')
-    expect(swears.unDodgeWord(swears.translate('$h1 t'))).to.equal('shit')
-    expect(swears.unDodgeWord(swears.translate('wh0r3'))).to.equal('whore')
-    expect(swears.unDodgeWord(swears.translate('k1k3'))).to.equal('kike')
+    expect(swears.unDodgeWordByDelimiters(swears.translate(' f .u/ ck'))).to.equal('fuck')
+    expect(swears.unDodgeWordByDelimiters(swears.translate('$h1 t'))).to.equal('shit')
+    expect(swears.unDodgeWordByDelimiters(swears.translate('wh0r3'))).to.equal('whore')
+    expect(swears.unDodgeWordByDelimiters(swears.translate('k1k3'))).to.equal('kike')
     expect(swears.translate('wh@+ foul l@ngu@g3 is 7h15 50rc3rУ?!')).to.equal('what foul language is this sorcery?!')
   })
 })
