@@ -33,6 +33,19 @@ function unDodgeWordByDelimiters(word, delimiters=defaultDelimiters) {
   return newWord
 }
 
+function unDodgeWordbyReplacement(word, alphabet=alphabet) {
+	const possibilities = new Set()
+  for (let i = 0; i < word.length; i++) {
+  	for (let j = 0; j < alphabet.length; j++) {
+      const begin = word.slice(0,i)
+      const replaced = alphabet[j]
+      const end = word.slice(i + 1, word.length)
+      possibilities.add(begin + replaced + end)
+    }
+  }
+  return possibilities
+}
+
 function translate(phrase, substitutes=defaultSubs) {
   let newWord = ''
   for (let i = 0; i < phrase.length; i++) {
@@ -45,5 +58,6 @@ module.exports = {
   unDodgeWordByDelimiters: unDodgeWordByDelimiters,
   unDodgeWordByDeletion: unDodgeWordByDeletion,
   unDodgeWordByAddition: unDodgeWordByAddition,
+  unDodgeWordbyReplacement: unDodgeWordbyReplacement,
   translate: translate
 }
