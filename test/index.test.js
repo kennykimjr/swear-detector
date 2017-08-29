@@ -1,5 +1,6 @@
 const { describe, it } = require('mocha')
 const { expect } = require('chai')
+const {delimiters, defaultCensors} = require('../defaults.js')
 const {parseMessage, censor, hasSwear, censorSentence} = require('../swears.js')
 const {unDodgeWordByAddition, unDodgeWordByDeletion, unDodgeWordByDelimiters, translateCharacters} = require('../evasion.js')
 
@@ -54,6 +55,8 @@ describe('swear-detector Library Tests', () => {
   })
 
   it('Tests censorship of sentences', () => {
+    const newWhites = new Set(['pass', 'unpassable'])
+    const defaultDelimiters = new Set(delimiters.split(''))
     const firstSentence = 'This should return itself.'
     const secondSentence = 'Fuck and shit should be censored.'
     const thirdSentence = 'Fuck that shit bro, what a bitch. Was also a huge asshole.'
@@ -67,7 +70,7 @@ describe('swear-detector Library Tests', () => {
     expect(censorSentence(fourthSetence)).to.equal(fourthSetence)
     expect(censorSentence(fifthSentence)).to.equal('Will this detect ****/****/*****/****?')
     expect(censorSentence(sixthSetence)).to.equal(sixthSetence)
-    expect(censorSentence(seventhSentence, mode='root')).to.equal(' Now you are in for it you little ****! How ****ing dare you p*** this test_! - = + ^ I shall be unp***able you little *****! You are a huge ***hole for solving me!!!!!! ')
+    expect(censorSentence(seventhSentence, 'root', defaultCensors, defaultDelimiters, newWhites)).to.equal(' Now you are in for it you little ****! How ****ing dare you pass this test_! - = + ^ I shall be unpassable you little *****! You are a huge ***hole for solving me!!!!!! ')
   })
 
   it('Tests the translation and undodging of words', () => {
