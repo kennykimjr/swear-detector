@@ -67,5 +67,6 @@ module.exports = {
   unDodgeWordByDeletion: unDodgeWordByDeletion,
   unDodgeWordByAddition: unDodgeWordByAddition,
   unDodgeWordbyReplacement: unDodgeWordbyReplacement,
-  translateCharacters: translateCharacters
+  translateCharacters: translateCharacters,
+  translateDodges: translateDodges
 }

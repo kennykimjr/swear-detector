@@ -2,7 +2,7 @@ const { describe, it } = require('mocha')
 const { expect } = require('chai')
 const {delimiters, defaultCensors} = require('../defaults.js')
 const {parseMessage, censor, hasSwear, censorSentence} = require('../swears.js')
-const {unDodgeWordByAddition, unDodgeWordByDeletion, unDodgeWordByDelimiters, translateCharacters} = require('../evasion.js')
+const {unDodgeWordByAddition, unDodgeWordByDeletion, unDodgeWordByDelimiters, translateCharacters, translateDodges} = require('../evasion.js')
 
 describe('swear-detector Library Tests', () => {
 
@@ -66,18 +66,23 @@ describe('swear-detector Library Tests', () => {
     const seventhSentence = ' Now you are in for it you little shit! How fucking dare you pass this test_! - = + ^ I shall be unpassable you little bitch! You are a huge asshole for solving me!!!!!! '
     expect(censorSentence(firstSentence)).to.equal(firstSentence)
     expect(censorSentence(secondSentence)).to.equal('**** and **** should be censored.')
-    expect(censorSentence(thirdSentence, mode='root')).to.equal('**** that **** bro, what a *****. Was also a huge ***hole.')
+    expect(censorSentence(thirdSentence, 'root')).to.equal('**** that **** bro, what a *****. Was also a huge ***hole.')
     expect(censorSentence(fourthSetence)).to.equal(fourthSetence)
     expect(censorSentence(fifthSentence)).to.equal('Will this detect ****/****/*****/****?')
     expect(censorSentence(sixthSetence)).to.equal(sixthSetence)
-    expect(censorSentence(seventhSentence, 'root', defaultCensors, defaultDelimiters, newWhites)).to.equal(' Now you are in for it you little ****! How ****ing dare you pass this test_! - = + ^ I shall be unpassable you little *****! You are a huge ***hole for solving me!!!!!! ')
+    expect(censorSentence(seventhSentence, 'root', undefined, undefined, newWhites)).to.equal(' Now you are in for it you little ****! How ****ing dare you pass this test_! - = + ^ I shall be unpassable you little *****! You are a huge ***hole for solving me!!!!!! ')
   })
 
   it('Tests the translation and undodging of words', () => {
+    const dodges = {'f u c k': 'fuck', 'f.uck': 'fuck', 'shi1it': 'shit', 'k/ke': 'kike', 'cvnt': 'cunt', 'fvck': 'fuck', 'fu ck': 'fuck'}
     expect(unDodgeWordByDelimiters(translateCharacters(' f .u/ ck'))).to.equal('fuck')
     expect(unDodgeWordByDelimiters(translateCharacters('$h1 t'))).to.equal('shit')
     expect(unDodgeWordByDelimiters(translateCharacters('wh0r3'))).to.equal('whore')
     expect(unDodgeWordByDelimiters(translateCharacters('k1k3'))).to.equal('kike')
     expect(translateCharacters('wh@+ foul l@ngu@g3 is 7h15 50rc3rУ?!')).to.equal('what foul language is this sorcery?!')
+    expect(translateDodges( translateCharacters('hahahaha u f.Цcking k/ke u cvnt catch me fu çkers'), dodges ))
+    .to.equal('hahahaha u fucking kike u cunt catch me fuckers')
+    expect(translateDodges( translateCharacters('How the f u c k did you catch me? Shit son I can never swear again...'), dodges ))
+    .to.equal('How the fuck did you catch me? Shit son I can never swear again...')
   })
 })
