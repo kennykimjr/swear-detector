@@ -21,7 +21,7 @@ const evasion = require('swear-detector/evasion')
 
 ## Documentation
 
-### [defaults](https://github.com/kennykimjr/swear-detector/blob/master/defaults.js)
+### [defaults.js](https://github.com/kennykimjr/swear-detector/blob/master/defaults.js)
 
 This module contains all the default parameters that are used in the case that the user does not specify what to use for the parameters.
 
@@ -55,11 +55,16 @@ Censors a whole message. Generalizes the ```censor()``` function to a whole mess
 This module allows one to possibly, check if a word is being typed out in a way that could disrupt the behavior of ```swears.js```. This library implements a set of functions that can be used to unobscure words and/or sentences.
 
 ```
-translate(phrase, substitutes=defaultSubs)
+translateCharacters(phrase, substitutes=defaultSubs)
 ```
 
- This function returns a "translated"  string, or simply, replaces "foreign" characters with its matched substitute.
+This function returns a "translated"  string, or simply, replaces "foreign" characters with its matched substitute.
 
+```
+translateDodges(sentence, dodges={})
+```
+
+This function returns a "translated" "string". This utilizes a ```RegExp``` to replace all occurrences of the dodge. It iterates through the object to create a new replaced string. After all dodges are patched through, it returns a new string with all dodges patched. 
 
 ```
 unDodgeWordByDelimiters(word, delimiters=defaultDelimiters)
