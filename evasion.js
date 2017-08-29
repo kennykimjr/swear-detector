@@ -46,6 +46,16 @@ function unDodgeWordbyReplacement(word, alphabet=alphabet) {
   return possibilities
 }
 
+function unDodgeWordbyRepitition(word) {
+  let newWord = ''
+  for (let i = 0; i < word.length; i++) {
+    if (newWord[newWord.length - 1] !== word[i]) {
+      newWord += word[i]
+    }
+  }
+  return newWord
+}
+
 function translateCharacters(phrase, substitutes=defaultSubs) {
   let newWord = ''
   for (let i = 0; i < phrase.length; i++) {
@@ -67,6 +77,7 @@ module.exports = {
   unDodgeWordByDeletion: unDodgeWordByDeletion,
   unDodgeWordByAddition: unDodgeWordByAddition,
   unDodgeWordbyReplacement: unDodgeWordbyReplacement,
+  unDodgeWordbyRepitition: unDodgeWordbyRepitition,
   translateCharacters: translateCharacters,
   translateDodges: translateDodges
 }
