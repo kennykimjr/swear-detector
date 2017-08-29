@@ -1,6 +1,6 @@
 ## Swear-detector
 
-A javaScript Library for chat application users who want to moderate their chatrooms.
+A JavaScript Library for chat application users who want to moderate their chatrooms.
 
 ## Features
 * Functions that detect the use of swear words, and if wanted, to censor them against a set of whitelisted words.
@@ -21,7 +21,7 @@ const evasion = require('swear-detector/evasion')
 
 ## Documentation
 
-### [defaults](https://github.com/kennykimjr/swear-detector/blob/master/defaults.js)
+### [defaults.js](https://github.com/kennykimjr/swear-detector/blob/master/defaults.js)
 
 This module contains all the default parameters that are used in the case that the user does not specify what to use for the parameters.
 
@@ -30,7 +30,7 @@ This module contains all the default parameters that are used in the case that t
 ```
 parseMessage(message, delimiters=defaultDelimiters)
 ```
-Where nessage us a string, and delimiters is a ``` Set ``` of charaters to split a message. This returns a set of all unique "words", separated by whatever ```delimiters``` specified. If no parameters are specified, then it goes to ```defaultDelimiters```.
+Where message us a string, and delimiters is a ``` Set ``` of characters to split a message. This returns a set of all unique "words", separated by whatever ```delimiters``` specified. If no parameters are specified, then it goes to ```defaultDelimiters```.
 
 ```
 hasSwear(parsedMessage, swears=defaultSwears)
@@ -52,14 +52,19 @@ Censors a whole message. Generalizes the ```censor()``` function to a whole mess
 
 ### [evasion.js](https://github.com/kennykimjr/swear-detector/blob/master/evasion.js)
 
-This module allows one to possibly, check if a word is being typed out in a way that could disrupt the behavior of ```swears.js```. This library implements a set of functions that can be used to unobscure words and/or sentences.
+This module allows one to possibly, check if a word is being typed out in a way that could disrupt the behavior of ```swears.js```. This library implements a set of functions that can be used to un-obscure words and/or sentences.
 
 ```
-translate(phrase, substitutes=defaultSubs)
+translateCharacters(phrase, substitutes=defaultSubs)
 ```
 
- This function returns a "translated"  string, or simply, replaces "foreign" characters with its matched substitute.
+This function returns a "translated"  string, or simply, replaces "foreign" characters with its matched substitute.
 
+```
+translateDodges(sentence, dodges={})
+```
+
+This function returns a "translated" "string". This utilizes a ```RegExp``` to replace all occurrences of the dodge. It iterates through the object to create a new replaced string. After all dodges are patched through, it returns a new string with all dodges patched.
 
 ```
 unDodgeWordByDelimiters(word, delimiters=defaultDelimiters)
@@ -83,4 +88,10 @@ This function returns a ```Set``` of all the possible combinations of the ```wor
 unDodgeWordbyReplacement(word, alphabet=alphabet)
 ```
 
-This function returns a ```Set``` of all the possible combinations of the ```word``` by replacing at every position in the word a character with every combination from the ```alphabet``` specified. This is used to detect an atempt to potentially dodge the filter by replacing a character at a specified position.
+This function returns a ```Set``` of all the possible combinations of the ```word``` by replacing at every position in the word a character with every combination from the ```alphabet``` specified. This is used to detect an attempt to potentially dodge the filter by replacing a character at a specified position.
+
+```
+unDodgeWordbyRepitition(word)
+```
+
+This function returns a ```string``` of the word by dis-allowing the repeated use of the characters in order to obstruct the filter.

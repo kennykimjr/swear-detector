@@ -42,7 +42,7 @@ function censorSentence(sentence, mode=undefined, censors=defaultCensors, delimi
   let newMessage = gathered = ''
   for (let i = 0; i < sentence.length; i++) {
     if (delimiters.has(sentence[i])) {
-      newMessage += censor(gathered, mode=mode, censors=censors, delimiters=delimiters, whitelist=whitelist) + sentence[i]
+      newMessage += censor(gathered, mode, censors, whitelist) + sentence[i]
       gathered = ''
     }
     else {

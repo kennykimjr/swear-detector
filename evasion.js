@@ -46,7 +46,17 @@ function unDodgeWordbyReplacement(word, alphabet=alphabet) {
   return possibilities
 }
 
-function translate(phrase, substitutes=defaultSubs) {
+function unDodgeWordbyRepetition(word) {
+  let newWord = ''
+  for (let i = 0; i < word.length; i++) {
+    if (newWord[newWord.length - 1] !== word[i]) {
+      newWord += word[i]
+    }
+  }
+  return newWord
+}
+
+function translateCharacters(phrase, substitutes=defaultSubs) {
   let newWord = ''
   for (let i = 0; i < phrase.length; i++) {
     newWord += phrase[i] in substitutes ? substitutes[phrase[i]] : phrase[i]
@@ -54,10 +64,20 @@ function translate(phrase, substitutes=defaultSubs) {
   return newWord
 }
 
+function translateDodges(sentence, dodges={}) {
+  let newSentence = sentence
+  for (var dodge in dodges) {
+    newSentence = newSentence.replace(new RegExp(dodge, 'g'), dodges[dodge])
+  }
+  return newSentence
+}
+
 module.exports = {
   unDodgeWordByDelimiters: unDodgeWordByDelimiters,
   unDodgeWordByDeletion: unDodgeWordByDeletion,
   unDodgeWordByAddition: unDodgeWordByAddition,
   unDodgeWordbyReplacement: unDodgeWordbyReplacement,
-  translate: translate
+  unDodgeWordbyRepetition: unDodgeWordbyRepetition,
+  translateCharacters: translateCharacters,
+  translateDodges: translateDodges
 }
