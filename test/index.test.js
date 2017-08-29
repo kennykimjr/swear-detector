@@ -1,7 +1,7 @@
 const { describe, it } = require('mocha')
 const { expect } = require('chai')
 const {parseMessage, censor, hasSwear, censorSentence} = require('../swears.js')
-const {unDodgeWordByAddition, unDodgeWordByDeletion, unDodgeWordByDelimiters, translate} = require('../evasion.js')
+const {unDodgeWordByAddition, unDodgeWordByDeletion, unDodgeWordByDelimiters, translateCharacters} = require('../evasion.js')
 
 describe('swear-detector Library Tests', () => {
 
@@ -71,10 +71,10 @@ describe('swear-detector Library Tests', () => {
   })
 
   it('Tests the translation and undodging of words', () => {
-    expect(unDodgeWordByDelimiters(translate(' f .u/ ck'))).to.equal('fuck')
-    expect(unDodgeWordByDelimiters(translate('$h1 t'))).to.equal('shit')
-    expect(unDodgeWordByDelimiters(translate('wh0r3'))).to.equal('whore')
-    expect(unDodgeWordByDelimiters(translate('k1k3'))).to.equal('kike')
-    expect(translate('wh@+ foul l@ngu@g3 is 7h15 50rc3rУ?!')).to.equal('what foul language is this sorcery?!')
+    expect(unDodgeWordByDelimiters(translateCharacters(' f .u/ ck'))).to.equal('fuck')
+    expect(unDodgeWordByDelimiters(translateCharacters('$h1 t'))).to.equal('shit')
+    expect(unDodgeWordByDelimiters(translateCharacters('wh0r3'))).to.equal('whore')
+    expect(unDodgeWordByDelimiters(translateCharacters('k1k3'))).to.equal('kike')
+    expect(translateCharacters('wh@+ foul l@ngu@g3 is 7h15 50rc3rУ?!')).to.equal('what foul language is this sorcery?!')
   })
 })
