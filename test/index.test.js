@@ -4,7 +4,7 @@ const {delimiters, defaultCensors} = require('../defaults.js')
 const {parseMessage, censor, hasSwear, censorSentence} = require('../swears.js')
 const {
   unDodgeWordByAddition, unDodgeWordByDeletion, unDodgeWordByDelimiters,
-  unDodgeWordbyRepitition, translateCharacters, translateDodges} = require('../evasion.js')
+  unDodgeWordbyRepetition, translateCharacters, translateDodges} = require('../evasion.js')
 
 describe('swear-detector Library Tests', () => {
 
@@ -86,6 +86,6 @@ describe('swear-detector Library Tests', () => {
     .to.equal('hahahaha u fucking kike u cunt catch me fuckers')
     expect(translateDodges( translateCharacters('How the f u c k did you catch me? Shit son I can never swear again...'), dodges ))
     .to.equal('How the fuck did you catch me? Shit son I can never swear again...')
-    expect(unDodgeWordbyRepitition('fffffffffffuuuuuuuuuuuuuuuuuuuccccccccccccccccccccccckkkkkkk')).to.equal('fuck')
+    expect(unDodgeWordbyRepetition('fffffffffffuuuuuuuuuuuuuuuuuuuccccccccccccccccccccccckkkkkkk')).to.equal('fuck')
   })
 })

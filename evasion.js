@@ -46,7 +46,7 @@ function unDodgeWordbyReplacement(word, alphabet=alphabet) {
   return possibilities
 }
 
-function unDodgeWordbyRepitition(word) {
+function unDodgeWordbyRepetition(word) {
   let newWord = ''
   for (let i = 0; i < word.length; i++) {
     if (newWord[newWord.length - 1] !== word[i]) {
@@ -77,7 +77,7 @@ module.exports = {
   unDodgeWordByDeletion: unDodgeWordByDeletion,
   unDodgeWordByAddition: unDodgeWordByAddition,
   unDodgeWordbyReplacement: unDodgeWordbyReplacement,
-  unDodgeWordbyRepitition: unDodgeWordbyRepitition,
+  unDodgeWordbyRepetition: unDodgeWordbyRepetition,
   translateCharacters: translateCharacters,
   translateDodges: translateDodges
 }
